@@ -16,9 +16,9 @@ class Review(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     rating=models.IntegerField()
     description=models.CharField(max_length=200)
-    movie=models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie=models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
     created=models.DateTimeField(auto_now_add=True)
     update=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)+" | "+str(self.movie)
+        return str(self.user)+" | "+self.movie.title

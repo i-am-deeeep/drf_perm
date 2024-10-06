@@ -8,7 +8,7 @@ from rest_framework import status
 class MovieListAV(APIView):
     def get(self,request):
         movies=Movie.objects.all()
-        serializer=MovieSerializer(movies, many=True)
+        serializer=MovieSerializer(movies, many=True, context={'request':request})
         return Response(serializer.data)
     
     def post(self,request):
@@ -44,6 +44,7 @@ class MovieDetailAV(APIView):
         except Movie.DoesNotExist:
             return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
         movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -87,3 +88,11 @@ class ReviewDetailAV(APIView):
         except Review.DoesNotExist:
             return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
         review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MovieReviewsAV(APIView):
+    def get(self,request,pk):
+        reviews=Review.objects.filter(movie=pk)
+        serializer=ReviewSerializer(reviews,many=True)
+        return Response(serializer.data)
