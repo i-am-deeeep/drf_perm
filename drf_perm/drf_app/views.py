@@ -8,7 +8,7 @@ from rest_framework import status
 class MovieListAV(APIView):
     def get(self,request):
         movies=Movie.objects.all()
-        serializer=MovieSerializer(movies, many=True, context={'request':request})
+        serializer=MovieSerializer(movies, many=True)
         return Response(serializer.data)
     
     def post(self,request):

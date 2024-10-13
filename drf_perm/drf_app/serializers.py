@@ -8,6 +8,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         model=Review
         fields="__all__"
 
+    # user=serializers.StringRelatedField(read_only=True)
+
     movie_name=serializers.SerializerMethodField()
     user_name=serializers.SerializerMethodField()
     changed_mind=serializers.SerializerMethodField()
@@ -29,9 +31,9 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model=Movie
         fields="__all__"
-    # reviews=ReviewSerializer(many=True, read_only=True)
+    reviews=ReviewSerializer(many=True, read_only=True)
     # reviews=serializers.StringRelatedField(many=True)
-    reviews=serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name="review-detail")
+    # reviews=serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name="review-detail")
 
     # reviews=serializers.SerializerMethodField()
     # def get_reviews(self,obj):
