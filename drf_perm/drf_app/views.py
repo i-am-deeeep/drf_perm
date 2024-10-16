@@ -56,6 +56,15 @@ class ReviewListAV(APIView):
         return Response(serializer.data)
     
     def post(self,request):
+        user=request.data.get('user')
+        movie=request.data.get('movie')
+        pastreview=Review.objects.filter(user=user,movie=movie)
+        # print(pastreview.first())
+        if pastreview.exists():
+            return Response(
+                {"error": "You have already reviewed this movie."}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
         serializer=ReviewSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
