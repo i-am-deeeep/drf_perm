@@ -51,6 +51,7 @@ class MovieDetailAV(APIView):
 
 class ReviewListAV(APIView):
     def get(self,request):
+        # print(request.user)
         reviews=Review.objects.all()
         serializer=ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
