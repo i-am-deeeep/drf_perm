@@ -8,6 +8,8 @@ class Movie(models.Model):
     budget_INR=models.IntegerField()
     profitable=models.BooleanField()
     released_date=models.DateField()
+    avg_rating=models.FloatField(default=0)
+    num_of_ratings=models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
